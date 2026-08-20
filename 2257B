@@ -1,0 +1,24 @@
+https://codeforces.com/problemset/problem/2257/B
+t = int(input())
+
+for _ in range(t):
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+
+    # Rounds needed for Bea's last mountain to be destroyed
+    if n == 1:
+        A = a[0]
+    else:
+        A = a[0] + n - 1
+
+    # Rounds needed for Ver's last mountain to be destroyed
+    if m == 1:
+        B = b[0]
+    else:
+        B = b[0] + m - 1
+
+    if B <= A:
+        print(1)
+    else:
+        print(2)
