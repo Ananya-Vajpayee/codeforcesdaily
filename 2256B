@@ -1,0 +1,36 @@
+https://codeforces.com/problemset/problem/2256/B
+
+MOD = 998244353
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    s = input()
+
+    ans = 1
+
+    for start in range(2):
+        fixed = -1
+
+        for i in range(start, n, 2):
+            if s[i] != '?':
+                val = int(s[i])
+
+                if fixed == -1:
+                    fixed = val
+                elif val != fixed:
+                    # Distance between these positions is even,
+                    # so their values must be the same.
+                    ans = 0
+                    break
+
+        if ans == 0:
+            break
+
+        # If fixed exists, the whole chain is determined.
+        # Otherwise, we can choose its first value as 0 or 1.
+        if fixed == -1:
+            ans = ans * 2 % MOD
+
+    print(ans)
