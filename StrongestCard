@@ -1,0 +1,77 @@
+A. Find the Strongest Card
+time limit per test2 seconds
+memory limit per test1024 megabytes
+The standard playing cards are of thirteen different ranks, Ace, King, Queen, Jack, and those numbered Ten through Two. A standard deck of cards consists of four each of these ranks, 52 cards in total. In most of the card games, the strengths of the cards are in this order of their ranks, that is, Ace is the strongest and Two is the weakest.
+
+In some of the games popular in Japan and some other regions of East Asia, such as Daifugo, Zheng Shangyou, and Big Two, the strength order is different. In these games, among the thirteen ranks, Two is the strongest, Ace comes next, followed by King, Queen, and so on, in the ordinary rank order, making Three the weakest. In what follows, this unusual strength order is called the big two order.
+
+Given a number of cards, your task is to find the rank of the strongest card among them in the big two order.
+
+Input
+The input contains one or more test cases, each in the following format.
+
+n
+c1
+ c2
+ ⋯
+ cn
+Each test case consists of two lines. In the first line, the number of cards, n,
+ is given (1≤n≤52
+). The second line contains n
+ integers, c1,c2,…,cn,
+ which are between 1
+ and 13
+, inclusive, representing the ranks of the given n
+ cards. Here, integers 2
+ through 10
+ represent ranks Two through Ten, while 1,13,12,
+ and 11
+ represent Ace, King, Queen, and Jack, respectively. At most four cards may have the same rank.
+
+The end of the input is indicated by a line containing a zero. The number of test cases does not exceed 100
+.
+
+Output
+For each of the test cases, output in a line the rank of the card strongest in the big two order among the given cards. Here, again, ranks Ace, King, Queen, and Jack, should be represented as 1,13,12,
+ and 11,
+ and ranks Two through Ten should be represented as their numbers.
+
+Example
+InputCopy
+4
+2 1 10 12
+7
+3 4 5 4 3 4 5
+6
+3 11 13 7 8 3
+0
+OutputCopy
+2
+5
+13
+
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    idx = 0
+
+    # Strength order from strongest to weakest in the "big two" ranking
+    order = [2, 1, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3]
+    strength = {rank: pos for pos, rank in enumerate(order)}
+
+    out = []
+    while True:
+        n = int(data[idx]); idx += 1
+        if n == 0:
+            break
+        cards = [int(data[idx + i]) for i in range(n)]
+        idx += n
+        # smallest 'position' in order = strongest card
+        strongest = min(cards, key=lambda r: strength[r])
+        out.append(str(strongest))
+
+    print("\n".join(out))
+
+if __name__ == "__main__":
+    main()
