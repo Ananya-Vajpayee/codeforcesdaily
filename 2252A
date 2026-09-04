@@ -1,0 +1,32 @@
+You have n spell cards with damage a_i. Arrange them in any order. If two identical-damage cards are ever played back-to-back, the shield activates — the triggering card still deals damage, but every card after it deals 0. Maximize total damage.
+
+Idea: Let X be the most frequent value with frequency F, and O = n - F be the count of all other cards. Interleave the O distinct cards as separators between copies of X: X, other, X, other, ..., X. This lets you safely play O + 1 copies of X without a repeat; one more copy of X can be appended (it triggers the shield but still deals damage), giving min(F, O + 2) total X cards played. All O other cards always fully count.
+
+Answer: sum(other cards) + X * min(F, O + 2)
+
+import sys
+from collections import Counter
+
+def main():
+    input_data = sys.stdin.read().split()
+    idx = 0
+    t = int(input_data[idx]); idx += 1
+    results = []
+    for _ in range(t):
+        n = int(input_data[idx]); idx += 1
+        a = list(map(int, input_data[idx:idx + n])); idx += n
+        
+        cnt = Counter(a)
+        # find the value with max frequency
+        X, F = max(cnt.items(), key=lambda kv: kv[1])
+        O = n - F
+        
+        total_others = sum(a) - X * F
+        played_X = min(F, O + 2)
+        
+        ans = total_others + X * played_X
+        results.append(str(ans))
+    
+    print('\n'.join(results))
+
+main()
