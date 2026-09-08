@@ -1,0 +1,33 @@
+https://codeforces.com/problemset/problem/2259/D
+
+import sys
+
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    # If there is exactly one 0, answer is impossible
+    if a.count(0) == 1:
+        print("NO")
+        continue
+
+    print("YES")
+
+    ans = []
+    seen_zero = False
+
+    for x in a:
+        if x != 0:
+            ans.append('A')
+        else:
+            if not seen_zero:
+                ans.append('C')
+                seen_zero = True
+            else:
+                ans.append('B')
+
+    print(''.join(ans))
